@@ -3,6 +3,8 @@
 -->
 <?php
 session_start();
+
+// TODO Le header ici sert juste de test, a supprimer 
 header("refresh: 5;");
 
 // $L1 = 'IDFRABERTHIER<<<<<<<<<<<<<<<<<752085';
@@ -14,7 +16,6 @@ $L2 = '1907563563650CHARLOTTE<<MAR9704080F8';
 // $L1 = 'IDFRALIGNE<<<<<<<<<<<<<<<<<<<<291096';
 // $L2 = '1609291010218MARIA<<MICHELL9307115F1';
 
-
 $D1 = "2020-12-20";
 $D2 = "2022-10-13";
 $D3 = "2021-03-21";
@@ -24,6 +25,9 @@ date_default_timezone_set('GMT');
 $mrz = str_split($L1 . $L2);
 
 // toutes les fonctions suivantes retournent les valeurs du MRZ selon leur utilité
+
+// TODO les deux premieres entrees sont toujours les identifiants du format, 
+// il faudrait supprimer function id 
 function id($t) {
     $ID = str_split($t);
     return $ID[0] . $ID[1];
@@ -178,11 +182,7 @@ function dateCheckVoyage($y,$t) {
 }
 
 echo secondsToTime(dateCheckVoyage($D1,$D2));
-echo "<br>";
-echo secondsToTime(dateCheckVoyage($D2,$D2));
-echo "<br>";
-echo secondsToTime(dateCheckVoyage($D3,$D2));
-echo "<br>";
+
 // valide si la cle de securité est correcte :true
 function vKey($a, $b) {
     $key = getLastChar(checkKeySum($a));
@@ -194,7 +194,7 @@ function vKey($a, $b) {
         return false;
     }
 }
-echo vKey($L1,$L2);
+
 //Verifie key3, permet de faire une verification de la clé de sécurité 3
 function checkKeySum($t) {
     $code = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");

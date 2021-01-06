@@ -1,30 +1,67 @@
 <?php
 
-class Client
-{
-    // property declaration
+class Client {
+
     private $_nom;
-	private $_prenom;
-	private $_numero;
-	private $_email;
-	private $_count;
+    private $_prenom;
+    private $_numero;
+    private $_email;
+    private $_count;
 
     // method declaration
-     function __construct($nom, $prenom, $numero, $email) {
-       $this->_nom = $nom;
-	   $this->_prenom = $prenom;
-	   $this->_numero =$numero;
-	   $this->_email = $email;
-	   $this->_count = 0; 
+    function __construct($nom, $prenom, $numero, $email) {
+        $this->_nom = $nom;
+        $this->_prenom = $prenom;
+        $this->_numero = $numero;
+        $this->_email = $email;
+        $this->_count = 0;
     }
-	public function __get(){
-	
-	
-	
+
+	public function getCount($val){
+		return $this->_count;
 	}
-	public function counter(){
+
+    public function addCount($val) {
+        $this->_count += $val;
+		return $this;
+    }
 	
-	}		
+	public function getNom($t) {
+        return $this->_nom;
+    }
+
+    public function addNom($t) {
+        $this->_nom += $t;
+		return $this;
+    }
+
+	public function getPrenom($val){
+		return $this->_prenom;
+	}
+	
+    public function addPrenom($t) {
+        $this->_prenom += $t;
+		return $this;
+    }
+	
+	public function getNumero($val){
+		return $this->_numero;
+	}
+	
+    public function addNumero($t) {
+        $this->numero += $t;
+		return $this;
+    }
+	
+	public function getEmail($val){
+		return $this->_email;
+	}
+	
+    public function addEmail($t) {
+        $this->email += $t;
+		return $this;
+    }
+
 }
 
 ?>
