@@ -108,17 +108,6 @@ function getLastChar($t) {
     return $char;
 }
  
-//permet d'obtenir le jour et de valider par rapport a la date de validité de la carte au jour et dans 3 mois 
-//version test à garder pour plus tard, elle ne fait rien pour le moment
-function dateCheck() {
-
-    $today = date_create_from_format("Y-m-d", "2020-12-12");
-    $testdate = date_create_from_format("Y-m-d", "2022-10-13");
-
-    $interval = date_diff($today, $testdate);
-
-    return $interval;
-}
 
 // permet de transformer le temps en seconde en années, mois et jours. 
 function secondsToTime($t) {
@@ -181,8 +170,6 @@ function dateCheckVoyage($y,$t) {
     }
 }
 
-echo secondsToTime(dateCheckVoyage($D1,$D2));
-
 // valide si la cle de securité est correcte :true
 function vKey($a, $b) {
     $key = getLastChar(checkKeySum($a));
@@ -209,7 +196,7 @@ function checkKeySum($t) {
 
         if ($i < 69) {
             if ($t[$i] == "<") {
-                $v1 = 0;
+                $v1 = 0; 
             }
             if ($t[$i + 1] == "<") {
                 $v2 = 0;
@@ -233,7 +220,7 @@ function checkKeySum($t) {
             if ($t[$i] == "<") {
                 $v1 = 0;
             }
-            if ($t[$i + 1] == "<") {
+            if ($t[$i + 1] == "<") { 
                 $v2 = 0;
             }
 
