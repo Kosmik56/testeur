@@ -9,31 +9,34 @@ date_default_timezone_set('GMT');
 
 $L1 = "P<GBRKIDD<<LEWIS<STUART<<<<<<<<<<<<<<<<<<<<<";
 $L2 = "5601187549GBR9710131M2910024<<<<<<<<<<<<<<06";
-$date = "291002";
+$L3 = "HA672242<6YTO5802254M9601086<<<<<<<<<<<<<<08";
 
+
+
+$mrz = $L1 . $L2;
 function checkDateKey($t) {
+    $date = str_split($t);
     $code = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
     $c = 0;
     $v1;
     $v2;
     $v3;
-    for ($i = 0; $i < count($t); $i = $i + 3) {
+    for ($i = 21; $i < 27; $i = $i + 3) {
 
-        if ($i < 7) {
-            for ($j = 0; $j < count($code); $j++) {
-                if ($code[$j] == $t[$i]) {
-                    $v1 = $j;
-                }
-                if ($code[$j] == $t[$i + 1]) {
-                    $v2 = $j;
-                }
-                if ($code[$j] == $t[$i + 2]) {
-                    $v3 = $j;
-                }
+        for ($j = 0; $j < count($code); $j++) {
+            if ($code[$j] == $t[$i]) {
+                $v1 = $j;
             }
-            $c += $v1 * 7 + $v2 * 3 + $v3;
+            if ($code[$j] == $t[$i + 1]) {
+                $v2 = $j;
+            }
+            if ($code[$j] == $t[$i + 2]) {
+                $v3 = $j;
+            }
         }
+        $c += $v1 * 7 + $v2 * 3 + $v3;
     }
+    return $c % 10;
 }
 
 function checkNumberKey($t) {
@@ -43,33 +46,88 @@ function checkNumberKey($t) {
     $v2;
     $v3;
 
-    for ($i = 0; $i < count($t); $i = $i + 3) {
+    for ($i = 0; $i < 9; $i = $i + 3) {
 
-        if ($i < 10) {
-            if ($t[$i] == "<") {
-                $v1 = 0;
+        for ($j = 0; $j < count($code); $j++) {
+            if ($code[$j] == $t[$i]) {
+                $v1 = $j;
             }
-            if ($t[$i + 1] == "<") {
+            if ($code[$j] == $t[$i + 1]) {
+                $v2 = $j;
+            }
+            if ($code[$j] == $t[$i + 2]) {
+                $v3 = $j;
+            }
+        }
+        $c += $v1 * 7 + $v2 * 3 + $v3;
+    }
+    return $c % 10;
+}
+
+function checkBirthKey($t) {
+    $date = str_split($t);
+    $code = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+    $c = 0;
+    $v1;
+    $v2;
+    $v3;
+    for ($i = 13; $i < 19; $i = $i + 3) {
+
+        for ($j = 0; $j < count($code); $j++) {
+            if ($code[$j] == $t[$i]) {
+                $v1 = $j;
+            }
+            if ($code[$j] == $t[$i + 1]) {
+                $v2 = $j;
+            }
+            if ($code[$j] == $t[$i + 2]) {
+                $v3 = $j;
+            }
+        }
+        $c += $v1 * 7 + $v2 * 3 + $v3;
+    }
+    return $c % 10;
+}
+
+function checkKeySum($t) {
+    $mrz = str_split($t);
+    $code = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+    $c = 0;
+    $v1;
+    $v2;
+    $v3;
+    
+	for ($i = 0; $i < 38 ; $i = $i + 3) {
+            if ($mrz[$i] == "<") {
+                $v1 = 0; 
+            }
+            if ($i + 1 < 43 && $mrz[$i + 1] == "<") {
                 $v2 = 0;
             }
-            if ($t[$i + 2] == "<") {
+            if ($i + 2 < 43 && $mrz[$i + 2] == "<") {
                 $v3 = 0;
             }
-            for ($j = 0; $j < count($code); $j++) {
-                if ($code[$j] == $t[$i]) {
-                    $v1 = $j;
-                }
-                if ($code[$j] == $t[$i + 1]) {
-                    $v2 = $j;
-                }
-                if ($code[$j] == $t[$i + 2]) {
-                    $v3 = $j;
-                }
+        for ($j = 0; $j < count($code); $j++) {
+            if ($code[$j] == $mrz[$i]) {
+                $v1 = $j;
+				
             }
-            $c += $v1 * 7 + $v2 * 3 + $v3;
+            if ( $i + 1 < 43 && $code[$j] == $mrz[$i + 1]) {
+                $v2 = $j;
+				
+            }
+            if ($i + 2 < 43 && $code[$j] == $mrz[$i + 2] ) {
+                $v3 = $j;
+				
+            }
         }
+       
+	   $c += $v1 * 7 + $v2 * 3 + $v3;
+	    
     }
+    return $c%10;
 }
+
 
 // retourne le dernier caractere d'une string
 function getLastChar($t) {
@@ -87,7 +145,6 @@ function country($t) {
     return $country[2] . $country[3] . $country[4];
 }
 
-//TODO n'imprime que le premier nom, pas le reste. Il faut voir comment separer les noms des prenoms.
 function nom($t) {
     $nom = str_split($t);
     $i = 5;
@@ -97,6 +154,34 @@ function nom($t) {
         $i++;
     }
     return $result;
+}
+
+function prenoms($t) {
+    $nom = str_split($t);
+    $result = '';
+    $test = '';
+    for ($i = 5; $i < 43; $i++) {
+        $test = $nom[$i] . $nom[$i + 1];
+        if ($test == '<<') {
+
+            $j = $i + 2;
+            $duo = $nom[$j] . $nom[$j + 1];
+            while ($j < 43 && $duo != '<<') {
+                $duo = $nom[$j] . $nom[$j + 1];
+                $result .= $nom[$j];
+                $j++;
+            }
+            $nom = str_split($result);
+            $result = '';
+            for ($u = 0; $u < count($nom); $u++) {
+                if ($nom[$u] != '<') {
+                    $result .= $nom[$u];
+                } else
+                    $result .= ' ';
+            }
+            return $result;
+        }
+    }
 }
 
 function titleNumber($t) {
@@ -129,10 +214,8 @@ function sex($t) {
     return $sex[20];
 }
 
-//TODO pour l'instant imprime bêtement les valeurs, il faut extraire cette information pour la manipuler 
-function validity($t) {
+function date1($t) {
     $validity = str_split($t);
-    $date = implode($validity);
     return $validity[21] . $validity[22] . $validity[23] . $validity[24] . $validity[25] . $validity[26];
 }
 
@@ -141,16 +224,10 @@ function key3($t) {
     return $key[27];
 }
 
-//TODO ce truc est à revoir, il ne fait pas ce que je voudrai car je n'arrive pas a extraire la string vide
+//TODO ce truc est à revoir, il faut réussir a sortir que si le premier element est un < parce que sinon il y a des options 
 function optional($t) {
     $no = str_split($t);
-    $i = 28;
-    $result = '';
-    while ($no[$i] != '<' && $i < 41) {
-        $result .= $no[$i];
-        $i++;
-    }
-    return $result;
+    return $no[28] . $no[29] . $no[30] . $no[31] . $no[32] . $no[33] . $no[34] . $no[35] . $no[36] . $no[37] . $no[38] . $no[39] . $no[40] . $no[41];
 }
 
 function key4($t) {
@@ -163,14 +240,104 @@ function finalKey($t) {
     return $key[43];
 }
 
-function vKey($a, $b) {
-    $key = getLastChar(checkKeySum($a));
-    $code = getLastChar($b);
+// Ne prend en compte que les elements necessaire pour la cle de verification sur la $L2. checkKeySum(passportCheck($L2));
+function passportCheck($t){
 
+$p = titleNumber($t) . key1($t) . birthDate($t) . key2($t) . date1($t) . key3($t) . optional($t) . key4($t);
+
+return $p;
+}
+
+function vPassportKey($a, $b) {
+    $key = checkNumberKey($a);
+    $code = $b;
     if ($key == $code) {
-        return true;
+        return "yes";
     } else {
-        return false;
+        return "no";
     }
 }
-?>
+
+function vBirthKey($a, $b) {
+    $key = checkBirthKey($a);
+    $code = $b;
+    if ($key == $code) {
+        return "yes";
+    } else {
+        return "no";
+    }
+}
+
+function vDateKey($a, $b) {
+    $key = checkDateKey($a);
+    $code = $b;
+
+    if ($key == $code) {
+        return "yes";
+    } else {
+        return "no";
+    }
+}
+
+
+
+// permet de transformer le temps en seconde en années, mois et jours. 
+function secondsToTime($t) {
+    $dtF = new \DateTime('@0');
+    $dtT = new \DateTime("@$t");
+    return $dtF->diff($dtT)->format('%y an(s), %m mois, %d jour(s)');
+}
+// verifie les 3 mois 
+function dateCheck3M($t) {
+    $now = time();
+    $date2 = strtotime($t);
+    $diff = abs($date2 - $now);
+    if ($diff < 7862400) {
+        echo 'périmée <br>';
+        return $diff;
+    } else {
+        echo 'valide <br>';
+        return $diff;
+    }
+}
+// verifie les 6 mois 
+function dateCheck6M($t) {
+    $now = time();
+    $date2 = strtotime($t);
+    $diff = abs($date2 - $now);
+    if ($diff < 15638400) {
+        echo 'périmée <br>';
+        return $diff;
+    } else {
+        echo 'valide <br>';
+        return $diff;
+    }
+}
+
+//verifie si la carte est valide aujourd'hui
+function dateCheckToday($t) {
+    $now = time();
+    $date2 = strtotime($t);
+    $diff = $date2 - $now;
+	if ($diff < 0) {
+        echo 'périmée <br>';
+        return $diff;
+    } else {
+        echo 'valide <br>';
+        return $diff;
+    }
+}
+
+// calcul si le voyage est possible au bout de 3 mois 
+function dateCheckVoyage($y,$t) {
+    $date2 = strtotime($t);
+    $voyage = strtotime($y);
+    $diff = $date2 - $voyage;
+	if ($diff < 7948800) {
+        echo 'périmée <br>';
+        return $diff;
+    } else {
+        echo 'valide <br>';
+        return $diff;
+    }
+}

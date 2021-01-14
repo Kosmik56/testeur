@@ -4,30 +4,15 @@
 <?php
 session_start();
 
-// TODO Le header ici sert juste de test, a supprimer 
-header("refresh: 5;");
-
-// $L1 = 'IDFRABERTHIER<<<<<<<<<<<<<<<<<752085';
-// $L2 = '94099231028454CORRINE<<<<<<6512068F4';
-
 $L1 = 'IDFRAGUILLERON<<<<<<<<<<<<<<<<056018';
 $L2 = '1907563563650CHARLOTTE<<MAR9704080F8';
 
-// $L1 = 'IDFRALIGNE<<<<<<<<<<<<<<<<<<<<291096';
-// $L2 = '1609291010218MARIA<<MICHELL9307115F1';
-
-$D1 = "2020-12-20";
-$D2 = "2022-10-13";
-$D3 = "2021-03-21";
-$D4 = "2021-06-21";
 
 date_default_timezone_set('GMT');
 $mrz = str_split($L1 . $L2);
 
 // toutes les fonctions suivantes retournent les valeurs du MRZ selon leur utilité
 
-// TODO les deux premieres entrees sont toujours les identifiants du format, 
-// il faudrait supprimer function id 
 function id($t) {
     $ID = str_split($t);
     return $ID[0] . $ID[1];

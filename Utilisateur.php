@@ -1,3 +1,6 @@
+<!--
+@author L. S. D. Kidd
+-->
 <?php
 
 class Client {
