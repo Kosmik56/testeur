@@ -9,11 +9,11 @@ date_default_timezone_set('GMT');
 
 $L1 = "P<GBRKIDD<<LEWIS<STUART<<<<<<<<<<<<<<<<<<<<<";
 $L2 = "5601187549GBR9710131M2910024<<<<<<<<<<<<<<06";
-$L3 = "HA672242<6YTO5802254M9601086<<<<<<<<<<<<<<08";
 
 
 
 $mrz = $L1 . $L2;
+
 function checkDateKey($t) {
     $date = str_split($t);
     $code = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
@@ -96,38 +96,33 @@ function checkKeySum($t) {
     $v1;
     $v2;
     $v3;
-    
-	for ($i = 0; $i < 38 ; $i = $i + 3) {
-            if ($mrz[$i] == "<") {
-                $v1 = 0; 
-            }
-            if ($i + 1 < 43 && $mrz[$i + 1] == "<") {
-                $v2 = 0;
-            }
-            if ($i + 2 < 43 && $mrz[$i + 2] == "<") {
-                $v3 = 0;
-            }
+
+    for ($i = 0; $i < 38; $i = $i + 3) {
+        if ($mrz[$i] == "<") {
+            $v1 = 0;
+        }
+        if ($i + 1 < 43 && $mrz[$i + 1] == "<") {
+            $v2 = 0;
+        }
+        if ($i + 2 < 43 && $mrz[$i + 2] == "<") {
+            $v3 = 0;
+        }
         for ($j = 0; $j < count($code); $j++) {
             if ($code[$j] == $mrz[$i]) {
                 $v1 = $j;
-				
             }
-            if ( $i + 1 < 43 && $code[$j] == $mrz[$i + 1]) {
+            if ($i + 1 < 43 && $code[$j] == $mrz[$i + 1]) {
                 $v2 = $j;
-				
             }
-            if ($i + 2 < 43 && $code[$j] == $mrz[$i + 2] ) {
+            if ($i + 2 < 43 && $code[$j] == $mrz[$i + 2]) {
                 $v3 = $j;
-				
             }
         }
-       
-	   $c += $v1 * 7 + $v2 * 3 + $v3;
-	    
-    }
-    return $c%10;
-}
 
+        $c += $v1 * 7 + $v2 * 3 + $v3;
+    }
+    return $c % 10;
+}
 
 // retourne le dernier caractere d'une string
 function getLastChar($t) {
@@ -241,11 +236,11 @@ function finalKey($t) {
 }
 
 // Ne prend en compte que les elements necessaire pour la cle de verification sur la $L2. checkKeySum(passportCheck($L2));
-function passportCheck($t){
+function passportCheck($t) {
 
-$p = titleNumber($t) . key1($t) . birthDate($t) . key2($t) . date1($t) . key3($t) . optional($t) . key4($t);
+    $p = titleNumber($t) . key1($t) . birthDate($t) . key2($t) . date1($t) . key3($t) . optional($t) . key4($t);
 
-return $p;
+    return $p;
 }
 
 function vPassportKey($a, $b) {
@@ -279,14 +274,13 @@ function vDateKey($a, $b) {
     }
 }
 
-
-
 // permet de transformer le temps en seconde en années, mois et jours. 
 function secondsToTime($t) {
     $dtF = new \DateTime('@0');
     $dtT = new \DateTime("@$t");
     return $dtF->diff($dtT)->format('%y an(s), %m mois, %d jour(s)');
 }
+
 // verifie les 3 mois 
 function dateCheck3M($t) {
     $now = time();
@@ -300,6 +294,7 @@ function dateCheck3M($t) {
         return $diff;
     }
 }
+
 // verifie les 6 mois 
 function dateCheck6M($t) {
     $now = time();
@@ -319,7 +314,7 @@ function dateCheckToday($t) {
     $now = time();
     $date2 = strtotime($t);
     $diff = $date2 - $now;
-	if ($diff < 0) {
+    if ($diff < 0) {
         echo 'périmée <br>';
         return $diff;
     } else {
@@ -329,11 +324,11 @@ function dateCheckToday($t) {
 }
 
 // calcul si le voyage est possible au bout de 3 mois 
-function dateCheckVoyage($y,$t) {
+function dateCheckVoyage($y, $t) {
     $date2 = strtotime($t);
     $voyage = strtotime($y);
     $diff = $date2 - $voyage;
-	if ($diff < 7948800) {
+    if ($diff < 7948800) {
         echo 'périmée <br>';
         return $diff;
     } else {

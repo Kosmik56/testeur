@@ -92,7 +92,6 @@ function getLastChar($t) {
     $char = substr($t, -1);
     return $char;
 }
- 
 
 // permet de transformer le temps en seconde en années, mois et jours. 
 function secondsToTime($t) {
@@ -100,6 +99,7 @@ function secondsToTime($t) {
     $dtT = new \DateTime("@$t");
     return $dtF->diff($dtT)->format('%y an(s), %m mois, %d jour(s)');
 }
+
 // verifie les 3 mois 
 function dateCheck3M($t) {
     $now = time();
@@ -113,6 +113,7 @@ function dateCheck3M($t) {
         return $diff;
     }
 }
+
 // verifie les 6 mois 
 function dateCheck6M($t) {
     $now = time();
@@ -132,7 +133,7 @@ function dateCheckToday($t) {
     $now = time();
     $date2 = strtotime($t);
     $diff = $date2 - $now;
-	if ($diff < 0) {
+    if ($diff < 0) {
         echo 'périmée <br>';
         return $diff;
     } else {
@@ -142,11 +143,11 @@ function dateCheckToday($t) {
 }
 
 // calcul si le voyage est possible au bout de 3 mois 
-function dateCheckVoyage($y,$t) {
+function dateCheckVoyage($y, $t) {
     $date2 = strtotime($t);
     $voyage = strtotime($y);
     $diff = $date2 - $voyage;
-	if ($diff < 7948800) {
+    if ($diff < 7948800) {
         echo 'périmée <br>';
         return $diff;
     } else {
@@ -181,7 +182,7 @@ function checkKeySum($t) {
 
         if ($i < 69) {
             if ($t[$i] == "<") {
-                $v1 = 0; 
+                $v1 = 0;
             }
             if ($t[$i + 1] == "<") {
                 $v2 = 0;
@@ -205,7 +206,7 @@ function checkKeySum($t) {
             if ($t[$i] == "<") {
                 $v1 = 0;
             }
-            if ($t[$i + 1] == "<") { 
+            if ($t[$i + 1] == "<") {
                 $v2 = 0;
             }
 
