@@ -9,9 +9,9 @@ header("refresh: 5;");
 
 date_default_timezone_set('GMT');
 
-$L1 = "IRFRA10IRLHME22<2012032951<<<<";
-$L2 = "7906123F1106301SEN<<<<<<<<<<<1";
-$L3 = "MARTIN<<CHRISTELLE<HELENE<<<<<";
+$L1 = $_GET[line1];
+$L2 = $_GET[line2];
+//$L3 = "MARTIN<<CHRISTELLE<HELENE<<<<<";
 
 $mrz = $L1 . $L2;
 

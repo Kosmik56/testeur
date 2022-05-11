@@ -4,8 +4,8 @@
 <?php
 session_start();
 
-$L1 = 'IDFRAGUILLERON<<<<<<<<<<<<<<<<056018';
-$L2 = '1907563563650CHARLOTTE<<MAR9704080F8';
+$L1 = $_GET[line1];
+$L2 = $_GET[line2];
 
 
 date_default_timezone_set('GMT');

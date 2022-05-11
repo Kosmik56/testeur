@@ -7,8 +7,8 @@ session_start();
 //header("refresh: 3;");
 date_default_timezone_set('GMT');
 
-$L1 = "P<GBRKIDD<<LEWIS<STUART<<<<<<<<<<<<<<<<<<<<<";
-$L2 = "5601187549GBR9710131M2910024<<<<<<<<<<<<<<06";
+$L1 = $_GET[line1];
+$L2 = $_GET[line2];
 
 
 
